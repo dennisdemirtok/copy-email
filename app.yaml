@@ -1,0 +1,29 @@
+runtime: php82
+
+env_variables:
+  app_baseURL: 'https://emails.cloud-labs.site/'
+  CI_ENVIRONMENT: 'production'
+  MONGODB_URI: 'mongodb+srv://n8n:bK2xQtiTGpnJtgrF@n8n.gt0zfix.mongodb.net/?retryWrites=true&w=majority'
+  DATABASE: 'EmailTrackerDB'
+  USER_APP: 'marketing'
+  PASSWORD_APP: 'QxCMgkK4jSrUH8hc'
+  CLOUD_FUNCTION_RESEND_QUEUE: 'https://europe-west1-sii-returner.cloudfunctions.net/resend-queue'
+  FROM_DOMAIN: 'flattered.com'
+  RESEND_API_KEY: 're_gnLuPkJE_Ltu1YWUGMaCwYSEvbQE2Thuv'
+  
+
+handlers:
+- url: /.*
+  script: auto
+  secure: always
+  redirect_http_response_code: 301
+
+vpc_access_connector:
+  name: projects/sii-returner/locations/europe-west1/connectors/appengine-eu-west1-con
+  egress_setting: all-traffic
+
+# Defaults to "serve index.php" and "serve public/index.php". Can be used to
+# serve a custom PHP front controller (e.g. "serve backend/index.php") or to
+# run a long-running PHP script as a worker process (e.g. "php worker.php").
+#
+# entrypoint: serve index.php
